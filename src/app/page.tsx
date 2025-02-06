@@ -23,7 +23,7 @@ export default function Home() {
 
   const enterName = () => {
     const namae = name.toLowerCase();
-    if (namae === "joy") {
+    if (namae === "joy" || namae === "joemathel") {
       setMsg(`Hello, ${namae.charAt(0).toUpperCase() + namae.slice(1)}! Enter your password`);
       setIsCorrectName(true);
     } else {
@@ -69,7 +69,7 @@ export default function Home() {
             }}>
           </input>
       </div> }      
-      <button className='my-4 text-xl md:text-2xl' onClick={isCorrectName ? enterPass : enterName}>
+      <button className='my-4 text-xl md:text-2xl bg-blue-400 px-4 py-2 text-white font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300' onClick={isCorrectName ? enterPass : enterName}>
         ENTER
       </button>
       {wrongPass && <div className='text-sm underline cursor-pointer' onClick={() => {setModal(true)}}>Want a hint?</div>}

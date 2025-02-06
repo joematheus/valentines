@@ -11,13 +11,12 @@ export default function Question() {
   const [q, setQ] = useState(false);
   const [kick, setKick] = useState(false);
 
-  const audio = new Audio("/assets/dadada.mp3");
-  const palagi = new Audio("/assets/palagi.mp3");
   const imgRef = useRef<HTMLImageElement | null>(null);
 
   const router = useRouter();
 
   const playAudio = () => {
+    const audio = new Audio("/assets/dadada.mp3");
     audio.play();
     setTimeout(() => {
       setModal(false);
@@ -29,6 +28,7 @@ export default function Question() {
     if (!image) return;
 
     const handleAnimationEnd = () => {
+      const palagi = new Audio("/assets/palagi.mp3");
       image.style.display = 'none';
       palagi.play();
       setQ(true);
