@@ -7,15 +7,63 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.floating {
+  position: relative;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+      transform: translateY(0);
+  }
+
+  50% {
+      transform: translateY(-20px);
+  }
+
+  100% {
+      transform: translateY(0);
+  }
+}
+
+.zooming {
+  animation: zoom 31s ease-in-out forwards;
+} 
+
+@keyframes zoom {
+  from {
+    transform: scale(0.01);
+  }
+
+  to {
+    transform: scale(1);
+
+  } 
+}
+
+.kicking {
+  animation: kick 300ms ease-in-out forwards
+}
+
+@keyframes kick {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-1000px);
+  }
 }

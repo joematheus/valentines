@@ -1,101 +1,96 @@
-import Image from "next/image";
+'use client';
+
+import { useRouter } from 'next/navigation'
+import { useState } from 'react';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [name, setName] = useState("");
+  const [pass, setPass] = useState("");
+  const [msg, setMsg] = useState("Hi! Please enter your name.");
+  const [isCorrectName, setIsCorrectName] = useState(false);
+  const [wrongPass, setWrongPass] = useState(false);
+  const [modal, setModal] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const router = useRouter();
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  }
+
+  const handlePassChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPass(e.target.value);
+  }
+
+  const enterName = () => {
+    const namae = name.toLowerCase();
+    if (namae === "joy") {
+      setMsg(`Hello, ${namae.charAt(0).toUpperCase() + namae.slice(1)}! Enter your password`);
+      setIsCorrectName(true);
+    } else {
+      setMsg(`Sorry, ${namae.charAt(0).toUpperCase() + namae.slice(1)}! Please try again.`);
+    }
+  }
+
+  const enterPass = () => {
+    const passw = pass.toLowerCase();
+    if (passw === "palagi") {
+      setMsg("Correct");
+      router.push("/question");
+    } else {
+      setWrongPass(true);
+      setMsg("Sorry! Wrong password.");
+    }
+  }
+
+  return (
+    <div className='flex flex-col items-center justify-center h-screen bg-red-100'>
+      <img src='/assets/temp.png' className='h-[100px] md:h-[200px] floating'></img>
+      <svg xmlns="http://www.w3.org/2000/svg" className='fill-white stroke-black stroke-[3px] floating' height='20'>
+        <polygon points="80,0 65,50 35,50" />
+      </svg>
+      <div className='w-4/5 md:w-2/5 mb-4 text-xl md:text-4xl text-center border-[3px] border-black rounded-full py-3 px-5 bg-white floating font-bold'>{msg}</div>
+      <div className='my-1'>
+        <input id='name' type='text' placeholder='Name' className='text-black p-2' onChange={handleNameChange} 
+          onKeyDown={
+            (e) => {
+              if (e.key === "Enter") {
+                enterName()
+              }
+            }}>
+          </input>
+      </div>
+      {isCorrectName && <div className='my-1'>
+        <input id='pass' type='text' placeholder='Just guess' className='text-black p-2' onChange={handlePassChange} 
+          onKeyDown={
+            (e) => { 
+              if (e.key == "Enter") {
+                enterPass()
+              }
+            }}>
+          </input>
+      </div> }      
+      <button className='my-4 text-xl md:text-2xl' onClick={isCorrectName ? enterPass : enterName}>
+        ENTER
+      </button>
+      {wrongPass && <div className='text-sm underline cursor-pointer' onClick={() => {setModal(true)}}>Want a hint?</div>}
+
+      { modal && <div className='fixed inset-0 bg-gray-600 bg-opacity-90 overflow-y-auto h-full w-full flex items-center justify-center'>
+        <div className="p-8 border w-96 shadow-lg rounded-md bg-white mx-3">
+          <div className="text-center">
+            <h3 className="text-2xl font-bold text-gray-900">Hint</h3>
+            <div className="mt-2 px-7 py-3">
+              <p className="text-lg text-gray-500">Our theme song</p>
+            </div>
+            <div className="flex justify-center mt-4">
+              <button className="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                onClick={() => setModal(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>}
     </div>
   );
 }
