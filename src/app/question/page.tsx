@@ -16,7 +16,7 @@ export default function Question() {
   const router = useRouter();
 
   const playAudio = () => {
-    const audio = new Audio("/assets/dadada.mp3");
+    const audio = new Audio("assets/dadada.mp3");
     audio.play();
     setTimeout(() => {
       setModal(false);
@@ -28,7 +28,7 @@ export default function Question() {
     if (!image) return;
 
     const handleAnimationEnd = () => {
-      const palagi = new Audio("/assets/palagi.mp3");
+      const palagi = new Audio("assets/palagi.mp3");
       image.style.display = 'none';
       palagi.play();
       setQ(true);
@@ -43,7 +43,7 @@ export default function Question() {
 
   return (
     <div className='flex flex-col items-center justify-center h-screen bg-red-100'>
-      { !modal && <img ref={imgRef} src='/assets/puss.png' className='h-[400px] md:h-[500px] zooming'></img>}
+      { !modal && <img ref={imgRef} src='assets/puss.png' className='h-[400px] md:h-[500px] zooming'></img>}
 
       { modal && <div className='fixed inset-0 bg-gray-600 bg-opacity-90 overflow-y-auto h-full w-full flex items-center justify-center'>
         <div className="p-8 border w-96 shadow-lg rounded-md bg-white mx-3">
@@ -66,7 +66,7 @@ export default function Question() {
       </div>}
 
       { q && <div className='flex flex-col items-center justify-center h-screen bg-red-100'>
-        <img src='/assets/q.png' className='h-[250px] md:h-[350px] '></img>
+        <img src='assets/q.png' className='h-[250px] md:h-[350px] '></img>
         <div className='mt-8 grid grid-cols-1 md:grid-cols-5 w-3/4'>
           <button className="my-1 md:mr-1 md:col-span-4 px-6 py-4  bg-blue-400 text-4xl font-bold text-white rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
             onClick={() => {setModal2(true)}}

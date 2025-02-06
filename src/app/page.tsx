@@ -44,7 +44,7 @@ export default function Home() {
 
   return (
     <div className='flex flex-col items-center justify-center h-screen bg-red-100'>
-      <img src='/assets/temp.png' className='h-[100px] md:h-[200px] floating'></img>
+      <img src='assets/temp.png' className='h-[100px] md:h-[200px] floating'></img>
       <svg xmlns="http://www.w3.org/2000/svg" className='fill-white stroke-black stroke-[3px] floating' height='20'>
         <polygon points="80,0 65,50 35,50" />
       </svg>
